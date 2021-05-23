@@ -1,0 +1,12 @@
+{
+  "name": "@rafat97/generator",
+  "version": "0.0.1",
+  "description": "This is a generator packages",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node ./test/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

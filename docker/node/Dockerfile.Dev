@@ -1,0 +1,11 @@
+FROM node:lts-alpine
+
+WORKDIR /usr/src/app
+
+COPY ./package.json /usr/src/app
+COPY ./packages /usr/src/app/packages
+# VOLUME [ "./" , '/usr/src/app' ]
+
+RUN npm install
+
+CMD npm start

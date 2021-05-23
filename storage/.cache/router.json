@@ -1,0 +1,22 @@
+[
+    {
+        "path": "/",
+        "request_type": "get",
+        "controller_type": "function"
+    },
+    {
+        "path": "/number/:id(\\d+)/",
+        "request_type": "get",
+        "controller_type": "function"
+    },
+    {
+        "path": "/users",
+        "request_type": "use",
+        "controller_type": "function"
+    },
+    {
+        "path": "forum",
+        "request_type": "resource",
+        "controller_type": "object"
+    }
+]
