@@ -3,6 +3,9 @@ version: '3.8'
 networks:
   my-network-nodeApp:
 
+volumes:
+  mongo-db-volume:
+
 services:
 
   # r_queue:
@@ -33,6 +36,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=example
     # volumes:
     #   - ./docker/mongodb/data:/data/db
+    volumes:
+      - mongo-db-volume:/data/db
     networks:
       - my-network-nodeApp
 

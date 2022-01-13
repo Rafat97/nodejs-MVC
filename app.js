@@ -4,7 +4,7 @@
 require("./bootstrap/bootglobal");
 
 // npm install check
-require("./bootstrap/config/spawn");
+// require("./bootstrap/config/spawn");
 
 var createError = require("http-errors");
 
