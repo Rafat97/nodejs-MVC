@@ -5,6 +5,7 @@ networks:
 
 volumes:
   mongo-db-volume:
+  mysql-db:
 
 services:
 
@@ -55,6 +56,36 @@ services:
       ME_CONFIG_MONGODB_SERVER: db
     networks:
       - my-network-nodeApp
+
+  # db:
+  #       image: mysql:latest
+  #       container_name: mysql
+  #       command: --default-authentication-plugin=mysql_native_password
+  #       restart: always
+  #       ports:
+  #       - '6603:3306'
+  #       environment:
+  #           MYSQL_DATABASE: 'testapp_db'
+  #           MYSQL_ALLOW_EMPTY_PASSWORD: 1
+  #           MYSQL_ROOT_PASSWORD: ""
+  #       volumes:
+  #                 - mysql-db:/var/lib/mysql
+  #             # - /.docker/db_backup:/docker-entrypoint-initdb.d
+  #             #   # - ./mysql/config:/etc/mysql          
+  #       networks:
+  #           -  my-network-nodeApp  
+  # db-management:
+  #       depends_on:
+  #       - db
+  #       image: phpmyadmin/phpmyadmin
+  #       container_name: phpmyadmin
+  #       restart: always
+  #       ports:
+  #       - '6601:80'
+  #       environment:
+  #           PMA_HOST: db
+  #       networks:
+  #           -  my-network-nodeApp
 
   app:
     build:

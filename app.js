@@ -25,6 +25,7 @@ const Mail = require("nodemailer/lib/mailer");
 var compression = require('compression')
 var csrf = require('csurf')
 var responseTime = require('response-time')
+var multer = require('multer');
 require("dotenv").config();
 
 // view engine setup
@@ -32,7 +33,7 @@ require('./bootstrap/config/view_content')(app)
 
 app.use(responseTime())
 app.use(cookieParser());
-app.use(csrf({ cookie: true }))
+// app.use(csrf({ cookie: true }))
 // define a custom res.message() method
 // which stores messages in the session
 app.response.message = function (msg) {
@@ -68,6 +69,7 @@ app.use(logger("common"));
 // app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer().array());
 
 require('./bootstrap/config/static_content')(app,express)
 app.use(flash());
@@ -92,7 +94,14 @@ app.use(function(req, res, next){
   next()
 });
 // require('./bootstrap/boot')(app, { verbose: !module.parent });
-require("./bootstrap/config/mongoose")(mongoose);
+if(process.env.DATABASE_TYPE === "mongodb"){
+  require("./bootstrap/config/mongoose")(mongoose);
+}
+
+// if(process.env.DATABASE_TYPE === "mysql"){
+//   require("./bootstrap/config/mysql");
+// }
+
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
