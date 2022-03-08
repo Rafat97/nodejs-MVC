@@ -5,6 +5,7 @@ echo "Running pre-commit hook..."
 # npm test
 echo "Project Version changed"
 npm --no-git-tag-version version patch || exit 1
+echo "Project git add all"
 git add .
 git status
 # exit 1
