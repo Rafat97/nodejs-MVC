@@ -1,5 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+echo "Running pre-commit hook..."
 # npm test
-exit 0
+echo "Project Version changed"
+npm --no-git-tag-version version patch || exit 1
+git add .
+git status
+# exit 1
