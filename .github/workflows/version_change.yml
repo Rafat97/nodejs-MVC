@@ -31,7 +31,7 @@ jobs:
           
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: version update by bot
+          commit_message: 🤖 project version update Update by ${{ github.actor }} bot
           commit_user_name: rafat97bot
           commit_user_email: rafathaque.bot@gmail.com
           commit_author: Rafat97[BOT] <rafathaque.bot@gmail.com>
