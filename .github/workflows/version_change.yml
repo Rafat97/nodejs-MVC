@@ -1,4 +1,4 @@
-ame: Basic Testing for CI
+name: Version Change Action
 
 on:
   push:
