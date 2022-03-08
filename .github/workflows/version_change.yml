@@ -31,7 +31,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Update version in package.json
         run: |
+          git config --local user.email "rafathaque.bot@gmail.com"
+          git config --local user.name "rafat97bot"
           npm version patch
+          
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: version update by bot
