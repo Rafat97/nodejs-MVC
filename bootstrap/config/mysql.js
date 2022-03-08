@@ -13,7 +13,7 @@ module.exports = async () => {
   } catch (error) {
     console.error(error);
     console.log(
-      "%s MySQL connection error. Please make sure MongoDB is running.",
+      "%s MySQL connection error. Please make sure MySQL is running.",
       chalk.red("✗")
     );
   }

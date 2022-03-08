@@ -1,6 +1,30 @@
 "use strict";
 
 /**
+ *
+ * Basic App information
+ *
+ * This will show in the console
+ *
+ * APP_NAME and APP_VERSION
+ *
+ */
+require("dotenv").config();
+var figlet = require("figlet");
+const APP_NAME = process.env.APP_NAME || "NO APP NAME";
+const APP_VERSION = process.env.npm_package_version;
+console.log(
+  `${figlet.textSync(APP_NAME, {
+    width: 80,
+    font: "Standard",
+    horizontalLayout: "default",
+    verticalLayout: "default",
+    whitespaceBreak: true
+  })}`
+);
+console.log(`v${APP_VERSION} \n`);
+
+/**
  * This is use for global require function from root dir.
  * So ,it is a better local require() paths for Node.js
  * @param name string
@@ -34,4 +58,4 @@ global.appRoot = () => {
  *
  * @returns async function
  */
-global.mailSend = require('./config/mail-sending')
+global.mailSend = require("./config/mail-sending");
