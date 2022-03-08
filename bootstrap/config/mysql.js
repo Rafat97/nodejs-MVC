@@ -1,23 +1,20 @@
 "use strict";
-const { Sequelize, Model, DataTypes } = require("sequelize");
+var chalk = require("chalk");
+const { Sequelize } = require("sequelize");
 
-const mysql_string = process.env.MYSQL_HOST || null;
-
-const sequelize = new Sequelize(mysql_string);
-
-module.exports = function () {
-  console.log("asdasdk");
-  // const connection_check =  await sequelize.authenticate();
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log("then");
-    })
-    .catch(() => {
-      console.log("catch");
-    });
-  console.log(connection_check);
-  console.log("as");
+module.exports = async () => {
+  const mysql_string = process.env.MYSQL_HOST || null;
+  try {
+    const sequelize = new Sequelize(mysql_string);
+    console.log("CHECKING MySQL connection");
+    const connection_check = await sequelize.authenticate();
+    console.log(connection_check);
+    console.log("%s Connected mysql Properly", chalk.green("✔️"));
+  } catch (error) {
+    console.error(error);
+    console.log(
+      "%s MySQL connection error. Please make sure MongoDB is running.",
+      chalk.red("✗")
+    );
+  }
 };
-
-// const sequelize = new Sequelize(mysql_string);

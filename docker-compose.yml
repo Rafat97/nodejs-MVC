@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 networks:
   my-network-nodeApp:
@@ -8,7 +8,6 @@ volumes:
   mysql-db:
 
 services:
-
   # r_queue:
   #   container_name: rabbitmq
   #   image: rabbitmq:management-alpine
@@ -25,39 +24,39 @@ services:
   #     - "./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins"
   #   networks:
   #     - my-network-nodeApp
-      
-  db:
-    container_name: mongo
-    image: mongo
-    restart: always
-    ports:
-     - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
-    # volumes:
-    #   - ./docker/mongodb/data:/data/db
-    volumes:
-      - mongo-db-volume:/data/db
-    networks:
-      - my-network-nodeApp
 
-  db-mangement:
-    container_name: mongo-express
-    image: mongo-express
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_SERVER: db
-    networks:
-      - my-network-nodeApp
+  # db-mongo:
+  #   container_name: mongo
+  #   image: mongo
+  #   restart: always
+  #   ports:
+  #    - 27017:27017
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=example
+  #   # volumes:
+  #   #   - ./docker/mongodb/data:/data/db
+  #   volumes:
+  #     - mongo-db-volume:/data/db
+  #   networks:
+  #     - my-network-nodeApp
 
-  # db:
+  # db-mangement-mongo:
+  #   container_name: mongo-express
+  #   image: mongo-express
+  #   restart: always
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example
+  #     ME_CONFIG_MONGODB_SERVER: db
+  #   networks:
+  #     - my-network-nodeApp
+
+  # db-mysql:
   #       image: mysql:latest
   #       container_name: mysql
   #       command: --default-authentication-plugin=mysql_native_password
@@ -71,10 +70,10 @@ services:
   #       volumes:
   #                 - mysql-db:/var/lib/mysql
   #             # - /.docker/db_backup:/docker-entrypoint-initdb.d
-  #             #   # - ./mysql/config:/etc/mysql          
+  #             #   # - ./mysql/config:/etc/mysql
   #       networks:
-  #           -  my-network-nodeApp  
-  # db-management:
+  #           -  my-network-nodeApp
+  # db-management-mysql:
   #       depends_on:
   #       - db
   #       image: phpmyadmin/phpmyadmin
@@ -92,7 +91,7 @@ services:
       context: .
       dockerfile: ./docker/node/Dockerfile.Dev
     image: "node-app"
-    depends_on: 
+    depends_on:
       - db
     container_name: "node-app-setup"
     restart: always

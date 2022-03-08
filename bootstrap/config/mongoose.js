@@ -1,6 +1,6 @@
-var chalk = require('chalk')
-
 "use strict";
+
+var chalk = require("chalk");
 
 const option = {
   useNewUrlParser: true,
@@ -9,15 +9,18 @@ const option = {
   useFindAndModify: false,
 };
 
-module.exports = function (mongoose) {
-  mongoose.connect(process.env.MONGODB_HOST, option);
-  const db = mongoose.connection;
-  db.on("error", function (err) {
-    console.error(err);
-    console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
-    process.exit();
-  });
-  db.once("open", function () {
-    console.log('%s Connected mongoose Properly', chalk.green('✔️'));
-  });
+module.exports = async (mongoose) => {
+  const CONNECTION_STRING = process.env.MONGODB_HOST || null;
+  try {
+    console.log("CHECKING MongoDB connection");
+    const connection_str = await mongoose.connect(CONNECTION_STRING, option);
+    console.log(connection_str);
+    console.log("%s Connected mongoose Properly", chalk.green("✔️"));
+  } catch (error) {
+    console.error(error);
+    console.log(
+      "%s MongoDB connection error. Please make sure MongoDB is running.",
+      chalk.red("✗")
+    );
+  }
 };
