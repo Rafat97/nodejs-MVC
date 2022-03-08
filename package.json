@@ -1,6 +1,6 @@
 {
   "name": "@rafat97/mvc_node",
-  "version": "1.0.6",
+  "version": "2.0.1",
   "private": false,
   "scripts": {
     "start": "nodemon -L ./bin/www",
