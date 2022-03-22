@@ -1,19 +1,25 @@
 "use strict";
-var responseTime = require("response-time");
-var bodyParser = require("body-parser");
-var helmet = require("helmet");
-var cookieParser = require("cookie-parser");
-var session = require("express-session");
-var flash = require("connect-flash");
-var methodOverride = require("method-override");
-var logger = require("morgan");
-var cors = require("cors");
-var compression = require("compression");
-var csrf = require("csurf");
-var responseTime = require("response-time");
-var multer = require("multer");
+let constant = require("./constant");
+let responseTime = require("response-time");
+let bodyParser = require("body-parser");
+let helmet = require("helmet");
+let cookieParser = require("cookie-parser");
+let session = require("express-session");
+let flash = require("connect-flash");
+let methodOverride = require("method-override");
+let logger = require("morgan");
+let cors = require("cors");
+let compression = require("compression");
+let csrf = require("csurf");
+let multer = require("multer");
+let custom_middleware = using(constant.custom_middleware_file);
 
 module.exports = (app) => {
+  let beforeMIddlewarePaths = custom_middleware.before();
+  for (const iterator of beforeMIddlewarePaths) {
+    using(iterator)(app);
+  }
+
   app.use(responseTime());
   app.use(cookieParser());
   // allow overriding methods in query (?_method=put)
@@ -91,4 +97,9 @@ module.exports = (app) => {
     res.status(err.status || 500);
     res.render("error");
   });
+
+  let afterMIddlewarePaths = custom_middleware.before();
+  for (const iterator of afterMIddlewarePaths) {
+    using(iterator)(app);
+  }
 };

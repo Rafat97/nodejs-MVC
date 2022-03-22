@@ -1,11 +1,14 @@
 FROM node:lts-alpine
 
+RUN apk add --no-cache libc6-compat
+
 WORKDIR /usr/src/app
 
 COPY ./package.json /usr/src/app
 COPY ./packages /usr/src/app/packages
 # VOLUME [ "./" , '/usr/src/app' ]
-
-RUN npm install
+RUN npm install 
+# RUN yarn install --frozen-lockfile
 
 CMD npm start
+# CMD yarn start

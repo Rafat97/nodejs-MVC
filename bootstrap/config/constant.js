@@ -8,4 +8,5 @@ module.exports = {
   static_content_path: "storage/public/",
   static_content_url: "/public",
   view_path: "views/web",
+  custom_middleware_file: "middleware/middleware.js",
 };
