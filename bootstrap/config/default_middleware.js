@@ -15,7 +15,7 @@ let multer = require("multer");
 let custom_middleware = using(constant.custom_middleware_file);
 
 module.exports = (app) => {
-  let beforeMIddlewarePaths = custom_middleware.before();
+  let beforeMIddlewarePaths = custom_middleware.before_default();
   for (const iterator of beforeMIddlewarePaths) {
     using(iterator)(app);
   }
@@ -98,7 +98,7 @@ module.exports = (app) => {
     res.render("error");
   });
 
-  let afterMIddlewarePaths = custom_middleware.before();
+  let afterMIddlewarePaths = custom_middleware.after_default();
   for (const iterator of afterMIddlewarePaths) {
     using(iterator)(app);
   }
