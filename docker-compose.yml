@@ -1,104 +1,22 @@
 version: "3.8"
 
 networks:
-  my-network-nodeApp:
-
-volumes:
-  mongo-db-volume:
-  mysql-db:
+  rafat97__network:
+    name: rafat97__network
 
 services:
-  # r_queue:
-  #   container_name: rabbitmq
-  #   image: rabbitmq:management-alpine
-  #   restart: always
-  #   ports:
-  #     - "15672:15672"
-  #     - "5672:5672"
-  #   environment:
-  #     - RABBITMQ_ERLANG_COOKIE=TESTTESTERTABBITMQ
-  #     - RABBITMQ_DEFAULT_USER=rabbitmq
-  #     - RABBITMQ_DEFAULT_PASS=rabbitmq
-  #     - RABBITMQ_DEFAULT_VHOST=/
-  #   volumes:
-  #     - "./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins"
-  #   networks:
-  #     - my-network-nodeApp
-
-  # db-mongo:
-  #   container_name: mongo
-  #   image: mongo
-  #   restart: always
-  #   ports:
-  #    - 27017:27017
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=root
-  #     - MONGO_INITDB_ROOT_PASSWORD=example
-  #   # volumes:
-  #   #   - ./docker/mongodb/data:/data/db
-  #   volumes:
-  #     - mongo-db-volume:/data/db
-  #   networks:
-  #     - my-network-nodeApp
-
-  # db-mangement-mongo:
-  #   container_name: mongo-express
-  #   image: mongo-express
-  #   restart: always
-  #   depends_on:
-  #     - db
-  #   ports:
-  #     - 8081:8081
-  #   environment:
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example
-  #     ME_CONFIG_MONGODB_SERVER: db
-  #   networks:
-  #     - my-network-nodeApp
-
-  # db-mysql:
-  #       image: mysql:latest
-  #       container_name: mysql
-  #       command: --default-authentication-plugin=mysql_native_password
-  #       restart: always
-  #       ports:
-  #       - '6603:3306'
-  #       environment:
-  #           MYSQL_DATABASE: 'testapp_db'
-  #           MYSQL_ALLOW_EMPTY_PASSWORD: 1
-  #           MYSQL_ROOT_PASSWORD: ""
-  #       volumes:
-  #                 - mysql-db:/var/lib/mysql
-  #             # - /.docker/db_backup:/docker-entrypoint-initdb.d
-  #             #   # - ./mysql/config:/etc/mysql
-  #       networks:
-  #           -  my-network-nodeApp
-  # db-management-mysql:
-  #       depends_on:
-  #       - db
-  #       image: phpmyadmin/phpmyadmin
-  #       container_name: phpmyadmin
-  #       restart: always
-  #       ports:
-  #       - '6601:80'
-  #       environment:
-  #           PMA_HOST: db
-  #       networks:
-  #           -  my-network-nodeApp
-
   app:
     build:
       context: .
-      dockerfile: ./docker/node/Dockerfile.Dev
-    image: "node-app"
-    depends_on:
-      - db
-    container_name: "node-app-setup"
+      dockerfile: ./Dockerfile.DEV
+    image: "auth-service:v1"
     restart: always
+    environment:
+      - "APP_PORT=9050"
     ports:
-      - "8089:8089"
+      - "9050:9050"
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
     networks:
-      - my-network-nodeApp
+      - rafat97__network
